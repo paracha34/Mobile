@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gadget Zone - Premium Electronics &amp; Mobile Store</title>
+    <meta name="description" content="Shop the latest mobile phones, flagship smartwatches, high-fidelity wireless audio, and premium tech gadgets at Gadget Zone." />
+    <link rel="icon" href="/pwa-192x192.png" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#7c3aed">
+    <meta name="application-name" content="Gadget Zone">
+    <meta name="apple-mobile-web-app-title" content="Gadget Zone">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Gadget Zone - Premium Electronics &amp; Mobile Store" />
+    <meta property="og:description" content="Shop the latest mobile phones, flagship smartwatches, high-fidelity wireless audio, and premium tech gadgets at Gadget Zone." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Environment Lifecycle & ServiceWorker Protection -->
+    <script>
+      (function() {
+        // 1. Guard ServiceWorker registration against iframe lifecycle invalid states
+        if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+          try {
+            const origRegister = navigator.serviceWorker.register.bind(navigator.serviceWorker);
+            navigator.serviceWorker.register = function(scriptURL, options) {
+              try {
+                return origRegister(scriptURL, options).catch(function(err) {
+                  // Silently suppress DOMException when document is in transition / invalid state
+                  return null;
+                });
+              } catch (e) {
+                return Promise.resolve(null);
+              }
+            };
+          } catch (_) {}
+        }
+
+        // 2. Prevent unhandled rejections from aborted ServiceWorker registrations in preview iframe
+        if (typeof window !== 'undefined') {
+          window.addEventListener('unhandledrejection', function(event) {
+            if (
+              event.reason &&
+              (event.reason.message?.includes('invalid state') ||
+               event.reason.message?.includes('ServiceWorker') ||
+               event.reason.name === 'InvalidStateError')
+            ) {
+              event.preventDefault();
+            }
+          });
+        }
+
+        // 3. Gracefully handle Vite HMR websocket in preview environment
+        if (typeof window === 'undefined' || !window.WebSocket) return;
+        const NativeWebSocket = window.WebSocket;
+        function PatchedWebSocket(url, protocols) {
+          const ws = new NativeWebSocket(url, protocols);
+          try {
+            const originalAddEventListener = ws.addEventListener.bind(ws);
+            ws.addEventListener = function(type, listener, options) {
+              if (type === 'close') {
+                const safeListener = function(event) {
+                  try {
+                    Object.defineProperty(event, 'wasClean', { value: true, configurable: true });
+                  } catch (_) {}
+                  return typeof listener === 'function' ? listener.call(this, event) : listener.handleEvent(event);
+                };
+                return originalAddEventListener(type, safeListener, options);
+              }
+              return originalAddEventListener(type, listener, options);
+            };
+          } catch (_) {}
+          return ws;
+        }
+        PatchedWebSocket.prototype = NativeWebSocket.prototype;
+        PatchedWebSocket.CONNECTING = NativeWebSocket.CONNECTING;
+        PatchedWebSocket.OPEN = NativeWebSocket.OPEN;
+        PatchedWebSocket.CLOSING = NativeWebSocket.CLOSING;
+        PatchedWebSocket.CLOSED = NativeWebSocket.CLOSED;
+        window.WebSocket = PatchedWebSocket;
+      })();
+    </script>
+  </head>
+  <body class="bg-[#0a0a0f] text-white selection:bg-[#7c3aed] selection:text-white antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

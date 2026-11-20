@@ -1,11 +1,29 @@
-<div align="center">
+## Environment Setup
+Copy .env.example to .env and fill in your values:
+- VITE_SUPABASE_URL: Your Supabase Project URL
+- VITE_SUPABASE_ANON_KEY: Your Supabase anon public key
+- GEMINI_API_KEY: Your Google AI Studio API key (optional - for Tech Advisor feature)
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+# Gadget Zone - Premium Electronics & Mobile Store
 
-  <h1>Built with AI Studio</h2>
+A high-performance e-commerce progressive web application (PWA) for smartphones, audio, wearables, and computing electronics.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Features
+- **Public Storefront**: Responsive catalog with multi-criteria filtering, price range controls, real-time search, trending badges, and detailed specification breakdowns.
+- **Cart & Checkout**: Slide-in cart drawer with LocalStorage synchronization and validated checkout submitting directly to Supabase `orders`.
+- **Admin Console**: Protected management portal for product inventory, promotions, categories, and order fulfillment status updates.
+- **PWA Ready**: Offline caching and in-app install prompt for mobile and desktop.
+- **Tech Advisor**: High-reasoning AI electronics consultant powered by Gemini 4 Argon thinking mode.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Supabase Database Setup
+Run the SQL script provided in `supabase-schema.sql` inside your Supabase project's SQL Editor to bootstrap tables (`categories`, `products`, `banners`, `orders`), Row Level Security (RLS) policies, and storage buckets (`product-images`, `banners`).
 
-</div>
+## Admin Access
+Create your administrator account in the Supabase Dashboard under **Authentication > Users > Add User**. Only authenticated Supabase users can access `/admin`.
+
+## Deployment
+Build for production:
+```bash
+npm run build
+```
+Vercel deployment is pre-configured with `vercel.json`.

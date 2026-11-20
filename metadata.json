@@ -1,0 +1,8 @@
+{
+  "name": "Gadget Zone - Premium Electronics & Mobile Store",
+  "description": "Premium e-commerce store for smartphones, audio, wearables, and gadgets with admin management, PWA, and order tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,364 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-card: #1a1a2e;
+  --accent-purple: #7c3aed;
+  --accent-purple-light: #a855f7;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b8;
+  --text-muted: #6b6b88;
+  --border-color: #2a2a3e;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(26, 26, 46, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+}
+
+.glass-panel-subtle {
+  background: rgba(18, 18, 26, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(42, 42, 62, 0.6);
+}
+
+.glass-card {
+  background: #1a1a2e;
+  border: 1px solid #2a2a3e;
+  transition: all 200ms ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Neon glow */
+.neon-glow {
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+}
+
+.neon-glow-lg {
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.25);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a3e;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Animations & Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 250ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Primary Button Futuristic Glow Pulse & Ripple */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.45), 0 0 30px rgba(124, 58, 237, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.8), 0 0 55px rgba(124, 58, 237, 0.5);
+  }
+}
+
+.btn-futuristic-primary {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background-color 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+.btn-futuristic-primary:hover {
+  transform: scale(1.04);
+  animation: pulseGlow 1.8s infinite ease-in-out;
+}
+
+/* Shockwave / ripple on click */
+.btn-futuristic-primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250%;
+  padding-bottom: 250%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(168, 85, 247, 0.4) 35%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-futuristic-primary:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: transform 0.45s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.5s ease-out;
+}
+
+/* Secondary Button Underline Sweep & Lift Shadow */
+.btn-futuristic-secondary {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+.btn-futuristic-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -4px rgba(124, 58, 237, 0.35);
+  border-color: rgba(168, 85, 247, 0.6);
+}
+
+.btn-futuristic-secondary::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed, #a855f7, #38bdf8);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-futuristic-secondary:hover::after {
+  transform: scaleX(1);
+}
+
+/* WhatsApp Heartbeat & Glow */
+@keyframes whatsappHeartbeat {
+  0% { transform: scale(1); }
+  12% { transform: scale(1.12); }
+  24% { transform: scale(1); }
+  36% { transform: scale(1.18); }
+  55% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes whatsappRadar {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+  65% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.0);
+    opacity: 0;
+  }
+}
+
+.animate-whatsapp-heartbeat {
+  animation: whatsappHeartbeat 2.8s infinite ease-in-out;
+}
+
+.animate-whatsapp-radar {
+  animation: whatsappRadar 2.2s infinite ease-out;
+}
+
+.whatsapp-glow:hover {
+  box-shadow: 0 0 25px rgba(37, 211, 102, 0.85), 0 0 50px rgba(37, 211, 102, 0.45);
+  transform: scale(1.08);
+}
+
+/* Navbar Logo Shimmer */
+@keyframes logoShineSweep {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  50%, 100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+.logo-shimmer-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-shimmer-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+  animation: logoShineSweep 3.6s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* Nav Links Magnetic Letter Spreading */
+.nav-magnetic-link {
+  position: relative;
+  letter-spacing: normal;
+  transition: letter-spacing 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease, transform 0.25s ease;
+}
+
+.nav-magnetic-link:hover {
+  letter-spacing: 0.07em;
+  color: #c084fc;
+  transform: translateY(-1px);
+}
+
+/* Navbar Icons Bounce + Glow */
+@keyframes iconBounceGlowAnim {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0px transparent);
+  }
+  40% {
+    transform: translateY(-5px) scale(1.14);
+    filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.85));
+  }
+  70% {
+    transform: translateY(1.5px) scale(0.97);
+  }
+}
+
+.icon-bounce-glow {
+  transition: transform 0.2s ease, filter 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.icon-bounce-glow:hover {
+  animation: iconBounceGlowAnim 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  border-color: rgba(168, 85, 247, 0.6) !important;
+}
+
+/* Announcement Bar Marquee */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Hero Animated Gradient Shift */
+@keyframes heroGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-drift {
+  background-size: 200% 200%;
+  animation: heroGradientShift 14s ease infinite;
+}
+
+/* Parallax drift animation */
+@keyframes parallaxDrift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -15px) scale(1.08);
+  }
+}
+
+.animate-parallax-drift {
+  animation: parallaxDrift 10s ease-in-out infinite;
+}
+
+/* Product Card 3D tilt perspective container */
+.product-card-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.product-card-tilt:hover {
+  border-color: rgba(168, 85, 247, 0.65) !important;
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.35), 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Reduced motion preference respect */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .product-card-tilt {
+    transform: none !important;
+  }
+  .btn-futuristic-primary:hover {
+    transform: none !important;
+    animation: none !important;
+  }
+}
